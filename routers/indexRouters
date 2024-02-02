@@ -27,27 +27,23 @@ router.get('/:id', async(req, res) => {
     // failure response
 })
 
-router.get('/', async(req, res) => {
-    res.send("okay");
-    // fetch all books
-    // request will not have any body
-
-    // success response
-    // The list must be wrapped with a books object in the response json
-})
-
-router.get('/api/books', (req, res) => {
+router.get('/', (req, res) => {
     // Extract query parameters
-    const searchField = req.query.search_field;
-    const value = req.query.value;
-    const sortingField = req.query.sorting_field;
-    const sortingOrder = req.query.sorting_order;
+    const title = req.query.title;
+    const author = req.query.author;
+    const sort = req.query.sort;
+    const order = req.query.order;
   
-    console.log(searchField);
-    console.log(value);
-    console.log(sortingField);
-    console.log(sortingOrder);
+    console.log(title);
+    console.log(author);
+    console.log(sort);
+    console.log(order);
     res.send("got requst");
+
+    // the request may contain 0 or more query parameters. when 0 parameter, if fetches all books.
+    // response should contain an array named book that contains all books
+    // success response
+    // no failure response
   });
 
   module.exports = router;

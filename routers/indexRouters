@@ -51,26 +51,37 @@ router.get('/:id', async(req, res) => {
    
 })
 
-router.get('/', (req, res) => {
-    // Extract query parameters
-    const title = req.query.title;
-    const author = req.query.author;
-    const sort = req.query.sort;
-    const order = req.query.order;
-  
-    console.log(title);
-    console.log(author);
-    console.log(sort);
-    console.log(order);
-    res.send("got requst");
-
-    // the request may contain 0 or more query parameters. when 0 parameter, if fetches all books.
-    // response should contain an array named book that contains all books
-    // success response
-    // no failure response
 
 
-  });
+
+router.get('/:id?', async (req, res) => {
+    const bookId = req.params.id;
+
+    try {
+        // If bookId is provided, find the book by ID
+        if (bookId) {
+            const book = await Book.findOne({id:bookId});
+
+            // If the book is found, respond with a 200 status code and the book object
+            if (book) {
+                return res.status(200).json(book);
+            } else {
+                // If the book is not found, respond with a 404 status code and an error message
+                return res.status(404).json({ error: 'Book not found' });
+            }
+        }
+
+        // If no bookId is provided, fetch all books
+        const allBooks = await Book.find();
+
+        // Respond with a 200 status code and an array of all books
+        res.status(200).json(allBooks);
+    } catch (error) {
+        console.error(error);
+        // If there's an error, respond with a 500 status code and an error message
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 
   module.exports = router;

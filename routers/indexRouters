@@ -1,24 +1,49 @@
 const express = require('express');
+const Book = require('../models/book.js');
 const app = require('../app.js');
 
 const router = express.Router({mergeParams : true});
 
 router.post('/', async(req, res) => {
     // add books
+    const book = new Book(req.body);
+
+    const id = req.body.id;
+
+    book.save()
+        .then((result) => {
+            res.status(201).json(req.body);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
     // failure response not needed
 })
 
-router.put('/:id', async(req, res) => {
+router.put('/:id', async (req, res) => {
     const id = req.params.id;
-    // update details of book with 'id'
 
-    // Upon successful operation, your API must return a 200 status code with the updated book object.
-    // Response status: 200 - Ok
+    try {
+        // Check if the provided id is a valid number
+        if (isNaN(id)) {
+            return res.status(400).json({ error: 'Invalid ID format' });
+        }
 
-    // If the requested book does not exist, respond with a 404 status code and an error message.
-    // Response status: 404 - Not found
-})
+        // Find the book by id and update its details
+        const updatedBook = await Book.findOneAndUpdate({ id: Number(id) }, req.body, { new: true });
 
+        // If the book is found and updated successfully
+        if (updatedBook) {
+            res.status(200).json(updatedBook);
+        } else {
+            // If the requested book does not exist
+            res.status(404).json({ error: 'Book not found' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 router.get('/:id', async(req, res) => {
     // fetch book by id
     // request will not have any body
@@ -26,27 +51,23 @@ router.get('/:id', async(req, res) => {
    
 })
 
-router.get('/', async(req, res) => {
-    res.send("okay");
-    // fetch all books
-    // request will not have any body
-
-    // success response
-    // The list must be wrapped with a books object in the response json
-})
-
-router.get('/api/books', (req, res) => {
+router.get('/', (req, res) => {
     // Extract query parameters
-    const searchField = req.query.search_field;
-    const value = req.query.value;
-    const sortingField = req.query.sorting_field;
-    const sortingOrder = req.query.sorting_order;
+    const title = req.query.title;
+    const author = req.query.author;
+    const sort = req.query.sort;
+    const order = req.query.order;
   
-    console.log(searchField);
-    console.log(value);
-    console.log(sortingField);
-    console.log(sortingOrder);
+    console.log(title);
+    console.log(author);
+    console.log(sort);
+    console.log(order);
     res.send("got requst");
+
+    // the request may contain 0 or more query parameters. when 0 parameter, if fetches all books.
+    // response should contain an array named book that contains all books
+    // success response
+    // no failure response
 
 
   });

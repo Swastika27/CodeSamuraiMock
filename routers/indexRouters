@@ -23,8 +23,7 @@ router.get('/:id', async(req, res) => {
     // fetch book by id
     // request will not have any body
 
-    // sucess response
-    // failure response
+   
 })
 
 router.get('/', async(req, res) => {
@@ -48,6 +47,12 @@ router.get('/api/books', (req, res) => {
     console.log(sortingField);
     console.log(sortingOrder);
     res.send("got requst");
+
+
+  });
+
+  router.get('/api/test',(req,res)=>{
+
   });
 
   module.exports = router;

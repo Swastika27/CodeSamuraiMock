@@ -44,7 +44,6 @@ router.put('/:id', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-
 router.get('/:id', async(req, res) => {
     // fetch book by id
     // request will not have any body

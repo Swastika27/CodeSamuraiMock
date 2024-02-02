@@ -1,4 +1,5 @@
 const express = require('express');
+const app = require('../app.js');
 
 const router = express.Router({mergeParams : true});
 
@@ -6,3 +7,47 @@ router.post('/', async(req, res) => {
     // add books
     // failure response not needed
 })
+
+router.put('/:id', async(req, res) => {
+    const id = req.params.id;
+    // update details of book with 'id'
+
+    // Upon successful operation, your API must return a 200 status code with the updated book object.
+    // Response status: 200 - Ok
+
+    // If the requested book does not exist, respond with a 404 status code and an error message.
+    // Response status: 404 - Not found
+})
+
+router.get('/:id', async(req, res) => {
+    // fetch book by id
+    // request will not have any body
+
+    // sucess response
+    // failure response
+})
+
+router.get('/', async(req, res) => {
+    res.send("okay");
+    // fetch all books
+    // request will not have any body
+
+    // success response
+    // The list must be wrapped with a books object in the response json
+})
+
+router.get('/api/books', (req, res) => {
+    // Extract query parameters
+    const searchField = req.query.search_field;
+    const value = req.query.value;
+    const sortingField = req.query.sorting_field;
+    const sortingOrder = req.query.sorting_order;
+  
+    console.log(searchField);
+    console.log(value);
+    console.log(sortingField);
+    console.log(sortingOrder);
+    res.send("got requst");
+  });
+
+  module.exports = router;

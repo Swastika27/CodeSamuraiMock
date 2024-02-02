@@ -9,16 +9,25 @@ router.post('/', async(req, res) => {
     // failure response not needed
 })
 
-router.put('/:id', async(req, res) => {
+router.put('/:id', async (req, res) => {
     const id = req.params.id;
-    // update details of book with 'id'
 
-    // Upon successful operation, your API must return a 200 status code with the updated book object.
-    // Response status: 200 - Ok
+    try {
+        // Find the book by id and update its details
+        const updatedBook = await Book.findByIdAndUpdate(id, req.body, { new: true });
 
-    // If the requested book does not exist, respond with a 404 status code and an error message.
-    // Response status: 404 - Not found
-})
+        // If the book is found and updated successfully
+        if (updatedBook) {
+            res.status(200).json(updatedBook);
+        } else {
+            // If the requested book does not exist
+            res.status(404).json({ error: 'Book not found' });
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 router.get('/:id', async(req, res) => {
     // fetch book by id

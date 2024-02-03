@@ -1,7 +1,7 @@
 {
   "name": "code-samurai",
   "version": "1.0.0",
-  "description": "",
+  "description": "Team: BUET BYTEBUSTERS\r Institution: BUET\r Team members email:\r Swastika Pandit: swastikapandit02@gmail.com\r A. N. Swapnil: a.n.swapnil2003@gmail.com\r Jarin Tasneem: jarintasneem248@gmailcom",
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",

@@ -1,7 +1,6 @@
-
 require('dotenv').config();
 const mongoose = require('mongoose');
-const url = 'mongodb+srv://arpitasamurai:arpitasamurai@samurai.5afjuqn.mongodb.net/?retryWrites=true&w=majority';
+const url = process.env.MONGO_URL;
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');

@@ -1,0 +1,14 @@
+version: '3'
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URL="mongodb+srv://arpitasamurai:arpitasamurai@samurai.5afjuqn.mongodb.net/?retryWrites=true&w=majority"
+      - serverPort=5000
+    volumes:
+      - .:/app
+      - /app/node_modules

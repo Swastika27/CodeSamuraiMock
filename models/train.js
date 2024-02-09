@@ -27,12 +27,12 @@ const trainSchema = new Schema ({
         },
         departure_time: {
             type: String, //hh:mm format restr need to be handled
-            required: true
+            required: false
         },
         fare: 
         {
             type: Number,
-            required: true
+            required: false
         }
 
     }

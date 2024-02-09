@@ -1,5 +1,4 @@
 const express = require('express');
-const Book = require('../models/book.js');
 const app = require('../app.js');
 
 
@@ -8,10 +7,12 @@ const router = express.Router({mergeParams : true});
 const userRouter=require('./userAction.js');
 const stationRouter = require('./stationAction.js');
 const trainRouter = require('./trainAction.js');
+const walletRouter = require('./walletAction.js');
 
 router.use('/users',userRouter);
 router.use('/stations', stationRouter);
 router.use('/trains', trainRouter);
+router.use('/wallets',walletRouter);
 
 // router.post('/', async(req, res) => {
 //     // add books

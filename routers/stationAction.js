@@ -14,12 +14,12 @@ async function getTrainsForStation(stationId) {
     return result;
 }
 
-async function getArrivalTime(stationId, stops) {
+async function getArrivalTime(stationId, stoppage) {
     // Iterate through the stops array to find the stop with the matching station_id
-    console.log(stops.length);
-    for (let i = 0; i < stops.length; i++) {
-        if (stops[i].station_id === stationId) {
-            return stops[i].arrival_time;
+    console.log(stoppage.length);
+    for (let i = 0; i < stoppage.length; i++) {
+        if (stoppage[i].station_id === stationId) {
+            return stoppage[i].arrival_time;
         }
     }
     // Return null if no matching station_id is found
@@ -75,10 +75,14 @@ router.get('/:station_id/trains', async(req, res) => {
 // Iterate through the response and restructure it
 trains.forEach(train => {
 
+    //const stop = (train.stops).find(stop => stop.station_id === stationId).exec();
+    //console.log(stop.arrival_time);
+    //const dep_time = getDepartureTime(stationId,train.stops);
+    
     const formattedtrain = {
         "train_id": train.train_id,
-        "arrival_time": getArrivalTime(stationId,train.stops),
-        "departure_time": getDepartureTime(stationId,train.stops)
+        "arrival_time": train.stops.arrival_time,
+        "departure_time": train.stops.departure_time
         
     };
     trainArray.push(formattedtrain);

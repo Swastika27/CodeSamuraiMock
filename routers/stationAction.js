@@ -36,49 +36,6 @@ router.get('/', async (req, res) => {
     }); 
 });
 
-// function getArrivalTime(stationId, stops) {
-//     if (Array.isArray(stops)) {
-//         const stop = stops.find(element => element.station_id === stationId);
-//         return stop ? stop.arrival_time : null;
-//     }
-//     return null;
-// }
-
-// function getDepartureTime(stationId, stops) {
-//     if (Array.isArray(stops)) {
-//         const stop = stops.find(element => element.station_id === stationId);
-//         return stop ? stop.departure_time : null;
-//     }
-//     return null;
-// }
-
-// router.get('/:station_id/trains', async(req, res) => {
-//     const stationId = req.params.station_id;
-    
-//     const trains = await getTrainsForStation(stationId);
-
-//     const trainArray = [];
-
-//     // Iterate through the response and restructure it
-//     for (let train of trains) {
-//         let time1 = getArrivalTime(stationId, train.stops);
-//         let time2 = getDepartureTime(stationId, train.stops);
-//         const formattedTrain = {
-//             "train_id": train.train_id,
-//             "arrival_time": time1,
-//             "departure_time": time2
-//         };
-//         trainArray.push(formattedTrain);
-//     }
-
-//     const formatResponse = {
-//         "station_id": stationId,
-//         "trains": trainArray
-//     }
-
-//     res.json(formatResponse);
-// });
-
 
 async function getTrainsForStation(stationId) {
     return Trains.find({ 'stops.station_id': stationId });

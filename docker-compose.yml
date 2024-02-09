@@ -5,9 +5,9 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     ports:
-      - "5000:5000"
+      - "8000:8000"
     environment:
-      - MONGO_URL="mongodb+srv://arpitasamurai:arpitasamurai@samurai.5afjuqn.mongodb.net/?retryWrites=true&w=majority"
+      - MONGO_URL="mongodb+srv://Ans2003:a2003ns@ans2003.qp6dlxl.mongodb.net/?retryWrites=true&w=majority"
       - serverPort=5000
     volumes:
       - .:/app

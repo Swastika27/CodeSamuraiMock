@@ -46,7 +46,7 @@ app.use(bodyParser.urlencoded({ extended:false}));
 app.use(bodyParser.json());
 (async () => {
     await connect();
-    await clearCollections();
+    // await clearCollections();
     app.use('/api', indexRouter);
 })();
 

@@ -16,16 +16,14 @@ router.post('/',async(req,res)=>{
     });
 })
 
-router.get('/', async (req, res) => {
-    Station.find()
-        .then((stations) => {
-            res.status(200).json({ stations });
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+router.get('/', async (req, res) => { 
+    Station.find({}, { _id: 0 })
+    .then((stations) => { 
+        res.status(200).json({ stations }); 
+    }) 
+    .catch((err) => { 
+        console.log(err); 
+    }); 
 });
-
-
 
 module.exports = router;

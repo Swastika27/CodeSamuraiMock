@@ -20,6 +20,10 @@ router.post('/', async(req, res) => {
                     "user_id": req.body.user_id,
                     "user_name": req.body.user_name,
                 }
+            }).then((result) => {
+                console.log("Wallet created");
+            }).catch((err) => {
+                console.log(err);
             });
             const { _id, ...restOfBody } = req.body;
             res.status(201).json(restOfBody);

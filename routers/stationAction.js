@@ -4,38 +4,15 @@ const router=express.Router();
 const Station = require('../models/station'); // Import your Station model
 const Trains = require('../models/train');
 
-async function getTrainsForStation(stationId) {
-    const cursor = Trains.find({'stops.station_id': stationId});
+// async function getTrainsForStation(stationId) {
+//     // const cursor = Trains.find({'stops.station_id': stationId});
 
-    //console.log(cursor);
-    // Example implementation
-    // You would typically query your database here to retrieve trains for the given station ID
-    const result = await Trains.find({'stops.station_id':stationId}).exec();
-    return result;
-}
-
-async function getArrivalTime(stationId, stoppage) {
-    // Iterate through the stops array to find the stop with the matching station_id
-    console.log(stoppage.length);
-    for (let i = 0; i < stoppage.length; i++) {
-        if (stoppage[i].station_id === stationId) {
-            return stoppage[i].arrival_time;
-        }
-    }
-    // Return null if no matching station_id is found
-    return null;
-}
-
-function getDepartureTime(stationId, stops) {
-    // Iterate through the stops array to find the stop with the matching station_id
-    for (let i = 0; i < stops.length; i++) {
-        if (stops[i].station_id === stationId) {
-            return stops[i].departure_time;
-        }
-    }
-    // Return null if no matching station_id is found
-    return null;
-}
+//     //console.log(cursor);
+//     // Example implementation
+//     // You would typically query your database here to retrieve trains for the given station ID
+//     const result = await Trains.find({'stops.station_id':stationId}).exec();
+//     return result;
+// }
 
 router.post('/',async(req,res)=>{
     Station.collection.insertOne(req.body)
@@ -59,43 +36,80 @@ router.get('/', async (req, res) => {
     }); 
 });
 
+// function getArrivalTime(stationId, stops) {
+//     if (Array.isArray(stops)) {
+//         const stop = stops.find(element => element.station_id === stationId);
+//         return stop ? stop.arrival_time : null;
+//     }
+//     return null;
+// }
 
+// function getDepartureTime(stationId, stops) {
+//     if (Array.isArray(stops)) {
+//         const stop = stops.find(element => element.station_id === stationId);
+//         return stop ? stop.departure_time : null;
+//     }
+//     return null;
+// }
+
+// router.get('/:station_id/trains', async(req, res) => {
+//     const stationId = req.params.station_id;
+    
+//     const trains = await getTrainsForStation(stationId);
+
+//     const trainArray = [];
+
+//     // Iterate through the response and restructure it
+//     for (let train of trains) {
+//         let time1 = getArrivalTime(stationId, train.stops);
+//         let time2 = getDepartureTime(stationId, train.stops);
+//         const formattedTrain = {
+//             "train_id": train.train_id,
+//             "arrival_time": time1,
+//             "departure_time": time2
+//         };
+//         trainArray.push(formattedTrain);
+//     }
+
+//     const formatResponse = {
+//         "station_id": stationId,
+//         "trains": trainArray
+//     }
+
+//     res.json(formatResponse);
+// });
+
+
+async function getTrainsForStation(stationId) {
+    return Trains.find({ 'stops.station_id': stationId });
+}
 
 router.get('/:station_id/trains', async(req, res) => {
-    const stationId = req.params.station_id;
+    const stationId = parseInt(req.params.station_id);
     
     const trains = await getTrainsForStation(stationId);
-    // Call your function to retrieve trains for the given station ID
-    //const trains = getTrainsForStation(stationId);
-
-    // Respond with the retrieved trains
 
     const trainArray = [];
 
-// Iterate through the response and restructure it
-trains.forEach(train => {
+    // Iterate through the response and restructure it
+    for (let train of trains) {
+        const stop = train.stops.find(stop => stop.station_id === stationId);
+        if (stop) {
+            const formattedTrain = {
+                "train_id": train.train_id,
+                "arrival_time": stop.arrival_time,
+                "departure_time": stop.departure_time
+            };
+            trainArray.push(formattedTrain);
+        }
+    }
 
-    //const stop = (train.stops).find(stop => stop.station_id === stationId).exec();
-    //console.log(stop.arrival_time);
-    //const dep_time = getDepartureTime(stationId,train.stops);
-    
-    const formattedtrain = {
-        "train_id": train.train_id,
-        "arrival_time": train.stops.arrival_time,
-        "departure_time": train.stops.departure_time
-        
-    };
-    trainArray.push(formattedtrain);
+    const formatResponse = {
+        "station_id": stationId,
+        "trains": trainArray
+    }
+
+    res.json(formatResponse);
 });
-
- console.log(trainArray);
- const formatResponse = {
-    "station_id": stationId,
-    "trains": trainArray
- }
-    res.json(trains);
-});
-
-
 
 module.exports = router;

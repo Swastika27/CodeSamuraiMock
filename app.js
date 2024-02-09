@@ -14,8 +14,7 @@ async function connect() {
         console.log(error);
     }
 }
-const morgan = require('morgan');
-const cookieParser = require('cookie-parser');
+
 
 
 // Constants

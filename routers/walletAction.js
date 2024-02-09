@@ -1,7 +1,7 @@
 const express=require('express');
 
 const router=express.Router();
-const path = require('path');
+const Wallet = require('../models/wallet');
 
 
 router.get('/',async(req,res)=>{

@@ -7,7 +7,8 @@ const Station = require('../models/station'); // Import your Station model
 router.post('/',async(req,res)=>{
     Station.collection.insertOne(req.body)
     .then((result) => {
-        res.status(201).json(req.body);
+        const { _id, ...restOfBody } = req.body;
+        res.status(201).json(restOfBody);
     })
     .catch((err) => {
         // Log any errors that occurred

@@ -16,6 +16,6 @@ const userSchema = new Schema ({
     }
 }, {timestamps: true});
 
-const Passenger = mongoose.model('Users', bookSchema);
+const Passenger = mongoose.model('Users', userSchema);
 
 module.exports = Passenger;

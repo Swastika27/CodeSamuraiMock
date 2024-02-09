@@ -12,15 +12,15 @@ const stationSchema = new Schema ({
         required: true
     },
     longitude: {
-        type: Double,
+        type: Number,
         required: true
     },
     latitude:{
-        type: Double,
+        type: Number,
         required: true
     }
 }, {timestamps: true});
 
-const Stations = mongoose.model('Stations', bookSchema);
+const Stations = mongoose.model('Stations', stationSchema);
 
 module.exports = Stations;

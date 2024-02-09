@@ -1,6 +1,19 @@
+require('dotenv').config();
+const mongoose = require('mongoose');
+const url = process.env.MONGO_URL;
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+
+async function connect() {
+    try{
+        await mongoose.connect(url);
+        console.log("connected to mongodb")
+    }catch(error)
+    {
+        console.log(error);
+    }
+}
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 
@@ -15,14 +28,7 @@ app.use(express.static('public'));
 // Middleware
 app.use(bodyParser.urlencoded({ extended:false}));
 app.use(bodyParser.json());
-app.use(morgan('tiny'));
-app.use(cookieParser());
-
-
-app.get('/',(req,res)=>{
-    res.redirect('/api/home');
-})
-
-app.use('/api', indexRouter);
+connect();
+app.use('/api/books', indexRouter);
 
 module.exports =app;

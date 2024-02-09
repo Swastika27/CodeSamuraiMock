@@ -1,14 +1,19 @@
 {
+  "name": "code-samurai",
+  "version": "1.0.0",
+  "description": "Team: BUET BYTEBUSTERS\r Institution: BUET\r Team members email:\r Swastika Pandit: swastikapandit02@gmail.com\r A. N. Swapnil: a.n.swapnil2003@gmail.com\r Jarin Tasneem: jarintasneem248@gmailcom",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.20.2",
-    "cookie-parser": "^1.4.6",
     "dotenv": "^16.4.1",
-    "ejs": "^3.1.9",
     "express": "^4.18.2",
-    "fs": "^0.0.1-security",
     "mongodb": "^6.3.0",
-    "morgan": "^1.10.0",
-    "path": "^0.12.7",
-    "router": "^1.3.8"
+    "mongoose": "^8.1.1",
+    "nodemon": "^3.0.3"
   }
 }

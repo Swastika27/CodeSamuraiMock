@@ -28,6 +28,6 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended:false}));
 app.use(bodyParser.json());
 connect();
-app.use('/api/books', indexRouter);
+app.use('/api', indexRouter);
 
 module.exports =app;

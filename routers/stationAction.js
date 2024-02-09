@@ -1,11 +1,31 @@
 const express=require('express');
 
 const router=express.Router();
-const path = require('path');
+const Station = require('./models/station'); // Import your Station model
 
 
-router.get('/',async(req,res)=>{
-    res.render('profile.ejs');
+router.post('/',async(req,res)=>{
+    Station.collection.insertOne(req.body)
+    .then((result) => {
+        res.status(201).json(req.body);
+    })
+    .catch((err) => {
+        // Log any errors that occurred
+        console.log(err);
+    });
 })
+
+router.post('/',async(req,res)=>{
+    Station.collection.insertOne(req.body)
+    .then((result) => {
+        res.status(201).json(req.body);
+    })
+    .catch((err) => {
+        // Log any errors that occurred
+        console.log(err);
+    });
+})
+
+
 
 module.exports = router;

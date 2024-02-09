@@ -38,6 +38,6 @@ const trainSchema = new Schema ({
     }
 }, {timestamps: true});
 
-const Trains = mongoose.model('Trains', bookSchema);
+const Trains = mongoose.model('Trains', trainSchema);
 
 module.exports = Trains;

@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const Passenger = require('./models/users.js');
 const  Trains = require('./models/train.js');
 const Stations = require('./models/station.js');
+const Wallets = require('./models/wallet.js');
 
 async function connect() {
     try{
@@ -24,6 +25,7 @@ async function clearCollections() {
         await Passenger.deleteMany({});
         await Trains.deleteMany({});
         await Stations.deleteMany({});
+        await Wallets.deleteMany({});
         console.log("Collections cleared");
     } catch (error) {
         console.log("Error clearing collections:", error);
